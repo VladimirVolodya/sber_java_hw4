@@ -42,7 +42,7 @@ public class AppTest {
     }
 
     @Test
-    public void ScalableThreadPoolSimpleTest() {
+    public void ScalableThreadPoolScalingTest() {
         var taskDuration = 5;
         var start = System.currentTimeMillis();
         var threadPool = new ScalableThreadPool(10, 20);

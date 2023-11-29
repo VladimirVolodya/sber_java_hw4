@@ -66,8 +66,8 @@ public class ScalableThreadPool implements ThreadPool {
         additionalThreads.removeIf(t -> t.getState() == State.TERMINATED);
     }
 
-    int additionalMax;
-    int waiting;
+    private int additionalMax;
+    private int waiting;
     private final Queue<Runnable> taskQueue;
     private final List<Thread> threads;
     private final Set<Thread> additionalThreads;
@@ -112,10 +112,9 @@ public class ScalableThreadPool implements ThreadPool {
             while (true) {
                 Runnable task = null;
                 synchronized (taskQueue) {
-                    task = taskQueue.poll();
-                }
-                if (task == null) {
-                    return;
+                    if ((task = taskQueue.poll()) == null) {
+                        return;
+                    }
                 }
                 if (task instanceof FinishTask) {
                     return;
